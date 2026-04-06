@@ -38,3 +38,107 @@ Ahora dentro do ssh actualizamos o sistema operativo.
 sudo apt update
 sudo apt upgrade
 ```
+
+## Instalación de Docker
+
+Ahora antes de comenzar ca instalación de docker temos que facer unha cousa a cal é descargar docker. Para iso imos usar o script que nos proporciona docker.
+
+```bash
+curl -sSL https://get.docker.com | sh
+```
+
+Agora engadimos o noso usuario ao grupo de docker para non ter que usar sudo.
+
+```bash
+sudo usermod -aG docker $USER
+```
+
+Agora reiniciamos a raspberry pi 5 para que se apliquen os cambios.
+
+```bash
+sudo reboot
+```
+
+Agora conectámonos por SSH á raspberry pi 5.
+
+```bash
+ssh [usuario]@[direccion IP]
+```
+
+Ahora comprobamos que docker se descargou correctamente.
+
+```bash
+groups
+```
+
+Se nos aparece "docker" na lista de grupos, significa que docker se descargou correctamente.
+
+E para verificalo ainda máis, podemos executar o comando
+
+```bash
+docker run hello-world
+```
+
+Se nos aparece "Hello from Docker!" na pantalla, significa que docker se descargou correctamente.
+
+Ahora o que vamos a facer é crear unha carpeta para gardar os datos de docker.
+
+## Instalación de frigate
+
+Ahora imos instalar frigate. Primeiro imos crear unha carpeta para gardar os datos de frigate.
+
+```bash
+mkdir frigate-nvr
+```
+
+Ahora entramos na carpeta.
+
+```bash
+cd frigate-nvr
+```
+
+Facemos unha carpeta a cal se vai chamar storage a cal vai gardar os videos, imaxes e a información de frigate.
+
+```bash
+mkdir storage
+```
+
+Agora creamos un ficheiro chamado config.yml a cal vai ter toda a información das camaras. No meu caso vou usar unha cámara IP TP-Link Tapo C200. A cal para conectarse tuven que crearlle unha conta para poder acceder a ela desde a raspberry pi 5.
+
+Ahora o que toca e poñerlle a seguinte configuración ao ficheiro config.yml:
+
+```yaml
+mqtt:
+  enabled: false
+
+ffmpeg:
+  hwaccel_args: preset-rpi-64-h264
+
+birdseye:
+  enabled: true
+  mode: continuous
+
+objects:
+  track:
+    - person
+
+cameras:
+  escalera:
+    ffmpeg:
+      inputs:
+        - path: rtsp://(Usuario da camara):(Contraseña da camara)@(IP da camara):554/stream1
+          roles:
+            - detect
+            - record
+    detect:
+      enabled: true
+      width: 1280
+      height: 720
+    record:
+      enabled: true
+      retain:
+        days: 7
+        mode: motion
+
+version: 0.14
+```
