@@ -142,3 +142,40 @@ cameras:
 
 version: 0.14
 ```
+
+Despois de facer o ficheiro config.yml, o que vamos a facer é crear un ficheiro docker-compose.yml para poder executar frigate. Para eso imos usar o seguinte comando:
+
+```bash
+mkdir docker-compose.yml
+```
+
+ E dentro de este ficheiro imos poñer o seguinte:
+
+```yml
+version: "3.9"
+services:
+  frigate:
+    container_name: frigate
+    privileged: true # this may not be necessary for all setups
+    restart: unless-stopped
+    image: ghcr.io/blakeblackshear/frigate:stable
+    shm_size: "64mb"
+    devices:
+      - /dev/bus/usb:/dev/bus/usb #Used for Coral if Available
+      - /dev/video10 #Map the Pi hardware acceleration
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /home/TuUsuario>/frigate-nvr/config.yml:/config/config.yml
+      - /home/<TuUsuario>/frigate-nvr/storage:/media/frigate
+      - type: tmpfs #Remove this if using a Pi with 2GB or Less RAM
+        target: /tmp/cache
+        tmpfs:
+          size: 1000000000
+    ports:
+      - "5000:5000"
+      - "8554:8554" # RTSP feeds
+      - "8555:8555/tcp" # WebRTC over tcp
+      - "8555:8555/udp" # WebRTC over udp
+    environment:
+      FRIGATE_RTSP_PASSWORD: "<TUContraseña>"
+```
