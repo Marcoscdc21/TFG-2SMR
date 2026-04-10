@@ -123,7 +123,7 @@ objects:
     - person
 
 cameras:
-  escalera:
+  escalera: # Esto podelo modificar para poñerlle o nome que queiras á cámara
     ffmpeg:
       inputs:
         - path: rtsp://(Usuario da camara):(Contraseña da camara)@(IP da camara):554/stream1
@@ -143,6 +143,27 @@ cameras:
 version: 0.14
 ```
 
+Se queres poñer mais camaras só tes que engadir o seguinte código dentro do apartadode cameras:
+
+```yaml
+   escalera: # Esto podelo modificar para poñerlle o nome que queiras á cámara
+    ffmpeg:
+      inputs:
+        - path: rtsp://(Usuario da camara):(Contraseña da camara)@(IP da camara):554/stream1
+          roles:
+            - detect
+            - record
+    detect:
+      enabled: true
+      width: 1280
+      height: 720
+    record:
+      enabled: true
+      retain:
+        days: 7
+        mode: motion
+```
+
 Despois de facer o ficheiro config.yml, o que vamos a facer é crear un ficheiro docker-compose.yml para poder executar frigate. Para eso imos usar o seguinte comando:
 
 ```bash
@@ -156,26 +177,84 @@ version: "3.9"
 services:
   frigate:
     container_name: frigate
-    privileged: true # this may not be necessary for all setups
+    privileged: true 
     restart: unless-stopped
     image: ghcr.io/blakeblackshear/frigate:stable
     shm_size: "64mb"
     devices:
-      - /dev/bus/usb:/dev/bus/usb #Used for Coral if Available
-      - /dev/video10 #Map the Pi hardware acceleration
+      - /dev/bus/usb:/dev/bus/usb
+      - /dev/video10 
     volumes:
       - /etc/localtime:/etc/localtime:ro
       - /home/TuUsuario>/frigate-nvr/config.yml:/config/config.yml
       - /home/<TuUsuario>/frigate-nvr/storage:/media/frigate
-      - type: tmpfs #Remove this if using a Pi with 2GB or Less RAM
+      - type: tmpfs 
         target: /tmp/cache
         tmpfs:
           size: 1000000000
     ports:
       - "5000:5000"
-      - "8554:8554" # RTSP feeds
-      - "8555:8555/tcp" # WebRTC over tcp
-      - "8555:8555/udp" # WebRTC over udp
+      - "8554:8554" 
+      - "8555:8555/tcp" 
+      - "8555:8555/udp" 
     environment:
       FRIGATE_RTSP_PASSWORD: "<TUContraseña>"
 ```
+
+Ahora con todo feito o que queda e executar o comando:
+
+```bash
+docker-compose up -d
+```
+
+E xa temos frigate funcionando.
+
+Ahora para acceder a frigate temos que ir a [IP da Raspberry Pi]:5000 e xa nos deixaría entrar no frigate
+
+# Máis configuracións para mais comodidade ca rapsberry pi 5
+
+Ahora o que vou ensinar aquí é como facer para ver as temperaturas e todo da raspberry, despois para como acceder a ela desde calquera sitio e por último como facer para que a raspberry funcione co wifi e non co cable ethernet.
+
+## Ver temperaturas e todo da raspberry pi 5
+
+Para ver as temperaturas e todo da raspberry pi 5 imos usar beszel o cal é un software que nos vai facilitar moita información. Para instalarlo imos usar o seguinte comando na carpeta de docker-compose.yml:
+
+```bash
+services:
+  beszel:
+    image: henrygd/beszel:latest
+    container_name: beszel
+    restart: unless-stopped
+    ports:
+      - "8090:8090"
+    volumes:
+      - ${PATH_TO_APPDATA}/beszel/data:/beszel_data
+```
+
+Ahora accedemos o lugar ca ip da raspberry e o puerto 8090. E xa nos deixaría entrar no beszel
+
+Ahora vainos entregar un código que vai ser moi parecido ao cal utilizamos anteriormente asique o que imos facer é copiar e pegar solo a parte que non temos.
+
+E con todo eso xa vai funcionar perfectamente beszel
+
+## Acceso remoto a raspberry
+
+En este punto vou enseñar como facer para acceder a raspberry desde calquera sitio. Para eso vamos utilizar tailscale o cal é unha VPN que nos vai permitir acceder a raspberry desde calquera sitio sin estar dentro da mesma rede.
+
+Para instalalo primeiro imos ter que poñer o seguinte comando para descargalo:
+
+```bash
+curl -fsSL https://tailscale.com/install.sh | sh
+```
+
+Despois de descargalo vamos iniciar tailscale co seguinte comando:
+
+```bash
+sudo tailscale up
+```
+
+Ahora nos vai dar un enlace o cal temos que copiar e pegar no navegador para iniciar sesión en tailscale e ahora teríamos que descargar a aplicación de tailacle no dispositivo que queiramos acceder, iniciar sesión e xa poderíamos acceder a raspberry desde calquera sitio.
+
+## Facer para que a raspberry funcione co wifi
+
+Para facer para que a raspberry funcione co wifi imos usar o comando:
