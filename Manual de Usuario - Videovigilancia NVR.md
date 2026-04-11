@@ -13,6 +13,7 @@
 9. [Acceso remoto desde calquera lugar](#acceso-remoto-desde-calquera-lugar)
 10. [Monitorización do sistema (Beszel)](#monitorización-do-sistema-beszel)
 11. [Mantemento básico](#mantemento-básico)
+
 ---
 
 ## Descrición do sistema
