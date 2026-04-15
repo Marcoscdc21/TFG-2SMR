@@ -67,7 +67,11 @@ Para acceder á interface principal de videovigilancia:
 
 1. **Abra un navegador web** en calquera dispositivo conectado á mesma rede.
 2. **Escriba na barra de direccións:** `http://[IP da Raspberry Pi]:5000`
-   - A dirección IP da Raspberry Pi aparece indicada no seu router.(Para acceder ao ruter vas ter que entrar no buscador e poñer a seguinte dirección: <http://192.168.1.1> e aí dentro xa vai encontrar a raspberry pi ca sua IP)
+   - A dirección IP da Raspberry Pi aparece indicada no seu router. Para acceder ao router vai ter que entrar no buscador e poñer a dirección que lle vai aparecer no router como nesta imaxe:
+
+   ![Configuración do router](https://imgs.search.brave.com/hae6K5VL8DilwifI0Y6WJmDXw_VrRnnobQ4wimJ10fg/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly93d3cu/Z3VpYWhhcmR3YXJl/LmVzL3dwLWNvbnRl/bnQvdXBsb2Fkcy8y/MDIwLzA3L2VudHJh/ci1hLWxhLWNvbmZp/Z3VyYWNpb24tZGVs/LXJvdXRlci0xLmpw/Zw)
+
+   Dentro vai encontrar a Raspberry Pi coa súa IP.
    - Exemplo para acceder a frigate: `http://192.168.1.100:5000`
 3. **Accederá á pantalla principal de Frigate**, onde verá todas as cámaras configuradas.
 
@@ -124,7 +128,7 @@ O sistema está configurado con **Tailscale**, unha VPN que lle permite acceder 
 2. **Inicie sesión** con unha conta que se lle facilitaría xunto co sistema.
 
 3. **Acceda a Frigate** usando a IP de Tailscale da Raspberry Pi:
-   - Abra o navegador e escriba: `http://[IP que ten a raspberry en Tailscale]:5000`
+   - Abra o navegador e escriba: `http://[IP que ten a Raspberry en Tailscale]:5000`
    - A IP de Tailscale da Raspberry Pi está ben indicada na aplicación.
 
 > **Nota:** Tailscale funciona de forma automática e segura. Unha vez configurado, non precisa facer nada máis.
