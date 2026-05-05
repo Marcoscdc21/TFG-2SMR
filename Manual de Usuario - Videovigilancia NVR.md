@@ -67,11 +67,9 @@ Para acceder á interface principal de videovigilancia:
 
 1. **Abra un navegador web** en calquera dispositivo conectado á mesma rede.
 2. **Escriba na barra de direccións:** `http://[IP da Raspberry Pi]:5000`
-   - A dirección IP da Raspberry Pi aparece indicada no seu router. Para acceder ao router vai ter que entrar no buscador e poñer a dirección que lle vai aparecer no router como nesta imaxe:
+   - A dirección IP da Raspberry Pi aparece indicada no seu router.
 
-   ![Configuración do router](https://imgs.search.brave.com/hae6K5VL8DilwifI0Y6WJmDXw_VrRnnobQ4wimJ10fg/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly93d3cu/Z3VpYWhhcmR3YXJl/LmVzL3dwLWNvbnRl/bnQvdXBsb2Fkcy8y/MDIwLzA3L2VudHJh/ci1hLWxhLWNvbmZp/Z3VyYWNpb24tZGVs/LXJvdXRlci0xLmpw/Zw)
-
-   Dentro vai encontrar a Raspberry Pi coa súa IP.
+    *[Como podo acceder ao router?](#como-podo-acceder-ao-router)*
    - Exemplo para acceder a frigate: `http://192.168.1.100:5000`
 3. **Accederá á pantalla principal de Frigate**, onde verá todas as cámaras configuradas.
 
@@ -176,3 +174,12 @@ Se o sistema non responde ou as cámaras non se ven:
 Pode reiniciar a raspberry pi 5 dende o panel de control de Beszel. Para iso, faga clic no botón de reiniciar que se atopa na parte superior dereita da pantalla.
 
 ---
+
+## Preguntas frecuentes
+
+### Como podo acceder ao router?
+
+Para acceder ao router vai ter que entrar no buscador e poñer a dirección que lle vai aparecer no router como en esta imaxen: ![](https://imgs.search.brave.com/hae6K5VL8DilwifI0Y6WJmDXw_VrRnnobQ4wimJ10fg/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly93d3cu/Z3VpYWhhcmR3YXJl/LmVzL3dwLWNvbnRl/bnQvdXBsb2Fkcy8y/MDIwLzA3L2VudHJh/ci1hLWxhLWNvbmZp/Z3VyYWNpb24tZGVs/LXJvdXRlci0xLmpw/Zw)
+Ahora ca URL do router vai poder acceder a el e dentro tería que pulsar no apartado de dispositivos con fíos e poñerse a buscar o nombre da Raspberry Pi
+
+![alt text](<TFG-2SMR/Imagenes/Captura de pantalla 2026-05-05 180556.png>)
