@@ -1,0 +1,36 @@
+version: "3.9"
+services:
+  frigate:
+    container_name: frigate
+    privileged: true 
+    restart: unless-stopped
+    image: ghcr.io/blakeblackshear/frigate:stable
+    shm_size: "64mb"
+    devices:
+      - /dev/bus/usb:/dev/bus/usb
+      - /dev/video10 
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /home/marcos/frigate-nvr/config.yml:/config/config.yml
+      - /home/marcos/frigate-nvr/storage:/media/frigate
+      - type: tmpfs
+        target: /tmp/cache
+        tmpfs:
+          size: 1000000000
+    ports:
+      - "5000:5000"
+      - "8554:8554"
+      - "8555:8555/tcp" 
+      - "8555:8555/udp" 
+    environment:
+      FRIGATE_RTSP_PASSWORD: "Contraseña"
+
+  beszel-agent:
+    image: henrygd/beszel-agent
+    container_name: beszel-agent
+    restart: unless-stopped
+    network_mode: host
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - ./beszel_agent_data:/var/lib/beszel-agent
+    environment:

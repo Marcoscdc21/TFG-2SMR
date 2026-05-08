@@ -171,7 +171,7 @@ Se precisa apagar o sistema (por exemplo, por unha mudanza ou para limpeza), con
 
 Se o sistema non responde ou as cámaras non se ven:
 
-Pode reiniciar a raspberry pi 5 dende o panel de control de Beszel. Para iso, faga clic no botón de reiniciar que se atopa na parte superior dereita da pantalla.
+Pode reiniciar a Raspberry pi 5 dende o panel de control de Beszel. Para iso, faga clic no botón de reiniciar que se atopa na parte superior dereita da pantalla.
 
 ---
 
@@ -182,4 +182,4 @@ Pode reiniciar a raspberry pi 5 dende o panel de control de Beszel. Para iso, fa
 Para acceder ao router vai ter que entrar no buscador e poñer a dirección que lle vai aparecer no router como en esta imaxen: ![](https://imgs.search.brave.com/hae6K5VL8DilwifI0Y6WJmDXw_VrRnnobQ4wimJ10fg/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly93d3cu/Z3VpYWhhcmR3YXJl/LmVzL3dwLWNvbnRl/bnQvdXBsb2Fkcy8y/MDIwLzA3L2VudHJh/ci1hLWxhLWNvbmZp/Z3VyYWNpb24tZGVs/LXJvdXRlci0xLmpw/Zw)
 Ahora ca URL do router vai poder acceder a el e dentro tería que pulsar no apartado de dispositivos con fíos e poñerse a buscar o nombre da Raspberry Pi
 
-![alt text](<TFG-2SMR/Imagenes/Captura de pantalla 2026-05-05 180556.png>)
+![alt text](<Imagenes/Captura de pantalla 2026-05-05 180556.png>)
