@@ -1,6 +1,6 @@
 # Introducción
 
-Neste manual vou a ensinar como facer para ter un servidor de vigilacia NVR nunha raspberry pi 5 co sistema opertivo de raspberry pi os lite sin ningunha interface grafica.
+Neste manual vou a ensinar como facer para ter un servidor de vigilacia NVR nunha Raspberry pi 5 co sistema opertivo de Raspberry pi os lite sen ningunha interface grafica.
 
 # Requisitos
 
@@ -15,24 +15,24 @@ Neste manual vou a ensinar como facer para ter un servidor de vigilacia NVR nunh
 
 # Instalación do sistema operativo
 
-Para instalar o sistema operativo na raspberry pi 5 imos usar o Raspberry Pi Imager. Ahora collemos a tarxeta SD e metémola no ordenador. Agora abrimos o Raspberry Pi Imager e seleccionamos a imaxe que queremos instalar. Neste caso, imos instalar o Raspberry Pi OS Lite (64-bit). E configuramos o nome de usuario e a contraseña. Tamén configuramos o wifi. E xa podemos instalar o sistema operativo.
+Para instalar o sistema operativo na Raspberry pi 5 imos usar o Raspberry Pi Imager. Collemos a tarxeta SD e metémola no ordenador, abrimos o Raspberry Pi Imager e seleccionamos a imaxe que queremos instalar. Neste caso, imos instalar o Raspberry Pi OS Lite (64-bit). E configuramos o nome de usuario, contraseña e despois o wifi. Despois só quedaría instalar o sistema operativo.
 
 # Configuración do sistema operativo
 
-Hora metemos a SD na raspberry pi 5 e encendémola. Agora conectámonos por SSH á raspberry pi 5.
-Facendo ping ao nome da raspberry pi 5. O nome da raspberry pi 5 é "raspberrypi".
+Metemos a SD na Raspberry pi 5 e encendémola. Agora conectámonos por SSH á Raspberry pi 5.
+Facendo ping ao nome da Raspberry pi 5, no meu caso o nome da Raspberry pi 5 é "Raspberrypi".
 
 ```bash
 ping [Nombre da Raspberry]
 ```
 
-E ahora conectámonos por SSH á raspberry pi 5.
+E agora conectámonos por SSH á Raspberry pi 5.
 
 ```bash
 ssh [usuario]@[direccion IP]
 ```
 
-Ahora dentro do ssh actualizamos o sistema operativo.
+agora dentro do ssh actualizamos o sistema operativo.
 
 ```bash
 sudo apt update
@@ -41,37 +41,37 @@ sudo apt upgrade
 
 ## Instalación de Docker
 
-Ahora antes de comenzar ca instalación de docker temos que facer unha cousa a cal é descargar docker. Para iso imos usar o script que nos proporciona docker.
+Antes de comenzar ca instalación de Docker temos que facer unha cousa a cal é descargar Docker. Para iso imos usar o script que nos proporciona Docker.
 
 ```bash
 curl -sSL https://get.docker.com | sh
 ```
 
-Agora engadimos o noso usuario ao grupo de docker para non ter que usar sudo.
+Engadimos o noso usuario ao grupo de Docker para non ter que usar sudo.
 
 ```bash
 sudo usermod -aG docker $USER
 ```
 
-Agora reiniciamos a raspberry pi 5 para que se apliquen os cambios.
+Reiniciamos a Raspberry pi 5 para que se apliquen os cambios.
 
 ```bash
 sudo reboot
 ```
 
-Agora conectámonos por SSH á raspberry pi 5.
+Conectámonos por SSH á Raspberry pi 5.
 
 ```bash
 ssh [usuario]@[direccion IP]
 ```
 
-Ahora comprobamos que docker se descargou correctamente.
+Comprobamos que Docker se descargou correctamente.
 
 ```bash
 groups
 ```
 
-Se nos aparece "docker" na lista de grupos, significa que docker se descargou correctamente.
+Se nos aparece "docker" na lista de grupos, significa que Docker se descargou correctamente.
 
 E para verificalo ainda máis, podemos executar o comando
 
@@ -79,19 +79,19 @@ E para verificalo ainda máis, podemos executar o comando
 docker run hello-world
 ```
 
-Se nos aparece "Hello from Docker!" na pantalla, significa que docker se descargou correctamente.
+Se nos aparece "Hello from Docker!" na pantalla, significa que Docker se descargou correctamente.
 
-Ahora o que vamos a facer é crear unha carpeta para gardar os datos de docker.
+agora o que vamos a facer é crear unha carpeta para gardar os datos de Docker.
 
 ## Instalación de frigate
 
-Ahora imos instalar frigate. Primeiro imos crear unha carpeta para gardar os datos de frigate.
+Para instalar frigate, primeiro imos crear unha carpeta para gardar os datos de frigate.
 
 ```bash
 mkdir frigate-nvr
 ```
 
-Ahora entramos na carpeta.
+agora entramos na carpeta.
 
 ```bash
 cd frigate-nvr
@@ -103,9 +103,9 @@ Facemos unha carpeta a cal se vai chamar storage a cal vai gardar os videos, ima
 mkdir storage
 ```
 
-Agora creamos un ficheiro chamado config.yml a cal vai ter toda a información das camaras. No meu caso vou usar unha cámara IP TP-Link Tapo C200. A cal para conectarse tuven que crearlle unha conta para poder acceder a ela desde a raspberry pi 5.
+Creamos un ficheiro chamado config.yml a cal vai ter toda a información das camaras. No meu caso vou usar unha cámara IP TP-Link Tapo C200. Para conectarme tuven que crearlle unha conta para poder acceder a ela desde a Raspberry pi 5.
 
-Ahora o que toca e poñerlle a seguinte configuración ao ficheiro config.yml:
+Agora o que toca é poñerlle a seguinte configuración ao ficheiro config.yml:
 
 ```yaml
 mqtt:
@@ -143,7 +143,7 @@ cameras:
 version: 0.14
 ```
 
-Se queres poñer mais camaras só tes que engadir o seguinte código dentro do apartadode cameras:
+Se queres poñer mais camaras só tes que engadir o seguinte código dentro do apartado de cameras:
 
 ```yaml
    escalera: # Esto podelo modificar para poñerlle o nome que queiras á cámara
@@ -201,7 +201,7 @@ services:
       FRIGATE_RTSP_PASSWORD: "<TUContraseña>"
 ```
 
-Ahora con todo feito o que queda e executar o comando:
+Agora con todo feito, o que queda é executar o comando:
 
 ```bash
 docker-compose up -d
@@ -209,15 +209,15 @@ docker-compose up -d
 
 E xa temos frigate funcionando.
 
-Ahora para acceder a frigate temos que ir a [IP da Raspberry Pi]:5000 e xa nos deixaría entrar no frigate
+Por último para acceder a frigate temos que ir a [IP da Raspberry Pi]:5000 e xa nos deixaría entrar no frigate
 
 # Máis configuracións para mais comodidade ca rapsberry pi 5
 
-Ahora o que vou ensinar aquí é como facer para ver as temperaturas e todo da raspberry, despois para como acceder a ela desde calquera sitio e por último como facer para que a raspberry funcione co wifi e non co cable ethernet.
+Agora o que vou ensinar aquí é como facer para ver as temperaturas e os porcentaxes de usos de memorias da Raspberry, despois para como acceder a ela desde calquera sitio e por último como facer para que a Raspberry funcione co wifi e non co cable ethernet.
 
-## Ver temperaturas e todo da raspberry pi 5
+## Ver temperaturas e o uso de todas as memorias Raspberry pi 5
 
-Para ver as temperaturas e todo da raspberry pi 5 imos usar beszel o cal é un software que nos vai facilitar moita información. Para instalarlo imos usar o seguinte comando na carpeta de docker-compose.yml:
+Para ver as temperaturas e as memorias da Raspberry pi 5 imos usar Beszel o cal é un software que nos vai facilitar moita información como podeser cousas importantes como o porcentaxe de uso da CPU, a temperatura da CPU e a porcentaxe de uso da memoria RAM. Para instalalo imos usar o seguinte comando na carpeta de docker-compose.yml:
 
 ```bash
 services:
@@ -231,15 +231,15 @@ services:
       - ${PATH_TO_APPDATA}/beszel/data:/beszel_data
 ```
 
-Ahora accedemos o lugar ca ip da raspberry e o puerto 8090. E xa nos deixaría entrar no beszel
+Accedemos o lugar ca ip da Raspberry e o porto 8090. E xa nos deixaría entrar no Beszel.
 
-Ahora vainos entregar un código que vai ser moi parecido ao cal utilizamos anteriormente asique o que imos facer é copiar e pegar solo a parte que non temos.
+Agora vainos entregar un código que vai ser moi parecido ao cal utilizamos anteriormente asique o que imos facer é copiar e pegar solo a parte que non temos.
 
-E con todo eso xa vai funcionar perfectamente beszel
+E con todo eso xa vai funcionar perfectamente Beszel
 
-## Acceso remoto a raspberry
+## Acceso remoto a Raspberry
 
-En este punto vou enseñar como facer para acceder a raspberry desde calquera sitio. Para eso vamos utilizar tailscale o cal é unha VPN que nos vai permitir acceder a raspberry desde calquera sitio sin estar dentro da mesma rede.
+En este punto vou enseñar como facer para acceder a Raspberry desde calquera sitio. Para eso vamos utilizar Tailscale o cal é unha VPN que nos vai permitir acceder a Raspberry desde calquera sitio sin estar dentro da mesma rede.
 
 Para instalalo primeiro imos ter que poñer o seguinte comando para descargalo:
 
@@ -247,14 +247,10 @@ Para instalalo primeiro imos ter que poñer o seguinte comando para descargalo:
 curl -fsSL https://tailscale.com/install.sh | sh
 ```
 
-Despois de descargalo vamos iniciar tailscale co seguinte comando:
+Despois de descargalo vamos iniciar Tailscale co seguinte comando:
 
 ```bash
 sudo tailscale up
 ```
 
-Ahora nos vai dar un enlace o cal temos que copiar e pegar no navegador para iniciar sesión en tailscale e ahora teríamos que descargar a aplicación de tailacle no dispositivo que queiramos acceder, iniciar sesión e xa poderíamos acceder a raspberry desde calquera sitio.
-
-## Facer para que a raspberry funcione co wifi
-
-Para facer para que a raspberry funcione co wifi imos usar o comando:
+Agora vai nos dar un enlace o cal temos que copiar e pegar no navegador para iniciar sesión en Tailscale e agora teríamos que descargar a aplicación de Tailscale no dispositivo que queiramos acceder, iniciar sesión e xa poderíamos acceder a Raspberry desde calquera sitio.
