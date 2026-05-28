@@ -183,3 +183,4 @@ Para acceder ao router vai ter que entrar no buscador e poñer a dirección que 
 Agora ca URL do router vai poder acceder a el e dentro tería que pulsar no apartado de dispositivos con fíos e poñerse a buscar o nombre da Raspberry Pi
 
 ![alt text](<Imagenes/Captura de pantalla 2026-05-05 180556.png>)
+ Volver ao punto de [Acceder á interface de videovigilancia (Frigate)](#acceder-á-interface-de-videovigilancia-frigate)
