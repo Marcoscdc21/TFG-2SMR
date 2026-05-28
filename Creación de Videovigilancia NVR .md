@@ -1,38 +1,38 @@
 # Introducción
 
-Neste manual vou a ensinar como facer para ter un servidor de vigilacia NVR nunha Raspberry pi 5 co sistema opertivo de Raspberry pi os lite sen ningunha interface grafica.
+Neste manual vou ensinar como facer para ter un servidor de vixilancia NVR nunha Raspberry Pi 5 co sistema operativo Raspberry Pi OS Lite sen ningunha interface gráfica.
 
 # Requisitos
 
-- Raspberry pi 5
+- Raspberry Pi 5
 - Tarxeta SD de 16GB ou máis
 - Fonte de alimentación de 5V e 5A
 - Cámara IP
-- Cable Ethernet (nun principio é necesario pero máis adiante imos configurar o wifi)
+- Cabo Ethernet (nun principio é necesario pero máis adiante imos configurar a wifi)
 - [Radxa Penta SATA HAT](https://es.aliexpress.com/item/1005007245905606.html?spm=a2g0o.order_list.order_list_main.14.4069194d6qVDD7&gatewayAdapt=glo2esp)
 - [Radxa Power DC12 36W](https://es.aliexpress.com/item/1005007226087758.html?gatewayAdapt=glo2esp)
 - Disco duro de 2.5"
 
 # Instalación do sistema operativo
 
-Para instalar o sistema operativo na Raspberry pi 5 imos usar o Raspberry Pi Imager. Collemos a tarxeta SD e metémola no ordenador, abrimos o Raspberry Pi Imager e seleccionamos a imaxe que queremos instalar. Neste caso, imos instalar o Raspberry Pi OS Lite (64-bit). E configuramos o nome de usuario, contraseña e despois o wifi. Despois só quedaría instalar o sistema operativo.
+Para instalar o sistema operativo na Raspberry Pi 5 imos usar o Raspberry Pi Imager. Collemos a tarxeta SD e metémola no ordenador, abrimos o Raspberry Pi Imager e seleccionamos a imaxe que queremos instalar. Neste caso, imos instalar o Raspberry Pi OS Lite (64-bit). E configuramos o nome de usuario, o contrasinal e despois a wifi. Despois só quedaría instalar o sistema operativo.
 
 # Configuración do sistema operativo
 
-Metemos a SD na Raspberry pi 5 e encendémola. Agora conectámonos por SSH á Raspberry pi 5.
-Facendo ping ao nome da Raspberry pi 5, no meu caso o nome da Raspberry pi 5 é "Raspberrypi".
+Metemos a SD na Raspberry Pi 5 e acendémola. Agora conectámonos por SSH á Raspberry Pi 5.
+Facendo ping ao nome da Raspberry Pi 5, no meu caso o nome da Raspberry Pi 5 é "Raspberrypi".
 
 ```bash
-ping [Nombre da Raspberry]
+ping [Nome da Raspberry]
 ```
 
-E agora conectámonos por SSH á Raspberry pi 5.
+E agora conectámonos por SSH á Raspberry Pi 5.
 
 ```bash
 ssh [usuario]@[direccion IP]
 ```
 
-agora dentro do ssh actualizamos o sistema operativo.
+Agora, dentro do SSH, actualizamos o sistema operativo.
 
 ```bash
 sudo apt update
@@ -41,7 +41,7 @@ sudo apt upgrade
 
 ## Instalación de Docker
 
-Antes de comenzar ca instalación de Docker temos que facer unha cousa a cal é descargar Docker. Para iso imos usar o script que nos proporciona Docker.
+Antes de comezar coa instalación de Docker, temos que descargalo. Para iso imos usar o script que nos proporciona Docker.
 
 ```bash
 curl -sSL https://get.docker.com | sh
@@ -53,57 +53,57 @@ Engadimos o noso usuario ao grupo de Docker para non ter que usar sudo.
 sudo usermod -aG docker $USER
 ```
 
-Reiniciamos a Raspberry pi 5 para que se apliquen os cambios.
+Reiniciamos a Raspberry Pi 5 para que se apliquen os cambios.
 
 ```bash
 sudo reboot
 ```
 
-Conectámonos por SSH á Raspberry pi 5.
+Conectámonos por SSH á Raspberry Pi 5.
 
 ```bash
 ssh [usuario]@[direccion IP]
 ```
 
-Comprobamos que Docker se descargou correctamente.
+Comprobamos que Docker se instalou correctamente.
 
 ```bash
 groups
 ```
 
-Se nos aparece "docker" na lista de grupos, significa que Docker se descargou correctamente.
+Se nos aparece "docker" na lista de grupos, significa que Docker se instalou correctamente.
 
-E para verificalo ainda máis, podemos executar o comando
+E para verificalo aínda máis, podemos executar o comando:
 
 ```bash
 docker run hello-world
 ```
 
-Se nos aparece "Hello from Docker!" na pantalla, significa que Docker se descargou correctamente.
+Se nos aparece "Hello from Docker!" na pantalla, significa que Docker se instalou correctamente.
 
-agora o que vamos a facer é crear unha carpeta para gardar os datos de Docker.
+Agora o que imos facer é crear un cartafol para gardar os datos de Docker.
 
-## Instalación de frigate
+## Instalación de Frigate
 
-Para instalar frigate, primeiro imos crear unha carpeta para gardar os datos de frigate.
+Para instalar Frigate, primeiro imos crear un cartafol para gardar os datos de Frigate.
 
 ```bash
 mkdir frigate-nvr
 ```
 
-agora entramos na carpeta.
+Agora entramos no cartafol.
 
 ```bash
 cd frigate-nvr
 ```
 
-Facemos unha carpeta a cal se vai chamar storage a cal vai gardar os videos, imaxes e a información de frigate.
+Creamos un cartafol chamado "storage" onde se gardarán os vídeos, as imaxes e a información de Frigate.
 
 ```bash
 mkdir storage
 ```
 
-Creamos un ficheiro chamado config.yml a cal vai ter toda a información das camaras. No meu caso vou usar unha cámara IP TP-Link Tapo C200. Para conectarme tuven que crearlle unha conta para poder acceder a ela desde a Raspberry pi 5.
+Creamos un ficheiro chamado config.yml que vai ter toda a información das cámaras. No meu caso vou usar unha cámara IP TP-Link Tapo C200. Para conectarme tiven que crearlle unha conta para poder acceder a ela desde a Raspberry Pi 5.
 
 Agora o que toca é poñerlle a seguinte configuración ao ficheiro config.yml:
 
@@ -123,10 +123,10 @@ objects:
     - person
 
 cameras:
-  escalera: # Esto podelo modificar para poñerlle o nome que queiras á cámara
+  escaleira: # Isto pódelo modificar para poñerlle o nome que queiras á cámara
     ffmpeg:
       inputs:
-        - path: rtsp://(Usuario da camara):(Contraseña da camara)@(IP da camara):554/stream1
+        - path: rtsp://(Usuario da cámara):(Contrasinal da cámara)@(IP da cámara):554/stream1
           roles:
             - detect
             - record
@@ -143,13 +143,13 @@ cameras:
 version: 0.14
 ```
 
-Se queres poñer mais camaras só tes que engadir o seguinte código dentro do apartado de cameras:
+Se queres poñer máis cámaras, só tes que engadir o seguinte código dentro do apartado de cameras:
 
 ```yaml
-   escalera: # Esto podelo modificar para poñerlle o nome que queiras á cámara
+   escaleira: # Isto pódelo modificar para poñerlle o nome que queiras á cámara
     ffmpeg:
       inputs:
-        - path: rtsp://(Usuario da camara):(Contraseña da camara)@(IP da camara):554/stream1
+        - path: rtsp://(Usuario da cámara):(Contrasinal da cámara)@(IP da cámara):554/stream1
           roles:
             - detect
             - record
@@ -164,13 +164,13 @@ Se queres poñer mais camaras só tes que engadir o seguinte código dentro do a
         mode: motion
 ```
 
-Despois de facer o ficheiro config.yml, o que vamos a facer é crear un ficheiro docker-compose.yml para poder executar frigate. Para eso imos usar o seguinte comando:
+Despois de facer o ficheiro config.yml, o que imos facer é crear un ficheiro docker-compose.yml para poder executar Frigate. Para iso imos usar o seguinte comando:
 
 ```bash
-mkdir docker-compose.yml
+nano docker-compose.yml
 ```
 
- E dentro de este ficheiro imos poñer o seguinte:
+E dentro deste ficheiro imos poñer o seguinte:
 
 ```yml
 version: "3.9"
@@ -186,8 +186,8 @@ services:
       - /dev/video10 
     volumes:
       - /etc/localtime:/etc/localtime:ro
-      - /home/TuUsuario>/frigate-nvr/config.yml:/config/config.yml
-      - /home/<TuUsuario>/frigate-nvr/storage:/media/frigate
+      - /home/<o_teu_usuario>/frigate-nvr/config.yml:/config/config.yml
+      - /home/<o_teu_usuario>/frigate-nvr/storage:/media/frigate
       - type: tmpfs 
         target: /tmp/cache
         tmpfs:
@@ -198,7 +198,7 @@ services:
       - "8555:8555/tcp" 
       - "8555:8555/udp" 
     environment:
-      FRIGATE_RTSP_PASSWORD: "<TUContraseña>"
+      FRIGATE_RTSP_PASSWORD: "<o_teu_contrasinal>"
 ```
 
 Agora con todo feito, o que queda é executar o comando:
@@ -207,19 +207,19 @@ Agora con todo feito, o que queda é executar o comando:
 docker-compose up -d
 ```
 
-E xa temos frigate funcionando.
+E xa temos Frigate funcionando.
 
-Por último para acceder a frigate temos que ir a [IP da Raspberry Pi]:5000 e xa nos deixaría entrar no frigate
+Por último, para acceder a Frigate temos que ir a [IP da Raspberry Pi]:5000 e xa nos deixará entrar en Frigate.
 
-# Máis configuracións para mais comodidade ca rapsberry pi 5
+# Máis configuracións para máis comodidade coa Raspberry Pi 5
 
-Agora o que vou ensinar aquí é como facer para ver as temperaturas e os porcentaxes de usos de memorias da Raspberry, despois para como acceder a ela desde calquera sitio e por último como facer para que a Raspberry funcione co wifi e non co cable ethernet.
+Agora o que vou ensinar aquí é como facer para ver as temperaturas e as porcentaxes de uso de memoria da Raspberry, despois como acceder a ela desde calquera sitio e, por último, como facer para que a Raspberry funcione coa wifi e non co cabo Ethernet.
 
-## Ver temperaturas e o uso de todas as memorias Raspberry pi 5
+## Ver as temperaturas e o uso de todas as memorias na Raspberry Pi 5
 
-Para ver as temperaturas e as memorias da Raspberry pi 5 imos usar Beszel o cal é un software que nos vai facilitar moita información como podeser cousas importantes como o porcentaxe de uso da CPU, a temperatura da CPU e a porcentaxe de uso da memoria RAM. Para instalalo imos usar o seguinte comando na carpeta de docker-compose.yml:
+Para ver as temperaturas e as memorias da Raspberry Pi 5 imos usar Beszel, un software que nos vai facilitar moita información importante como a porcentaxe de uso da CPU, a súa temperatura e a porcentaxe de uso da memoria RAM. Para instalalo, imos engadir o seguinte ao ficheiro docker-compose.yml:
 
-```bash
+```yaml
 services:
   beszel:
     image: henrygd/beszel:latest
@@ -231,26 +231,26 @@ services:
       - ${PATH_TO_APPDATA}/beszel/data:/beszel_data
 ```
 
-Accedemos o lugar ca ip da Raspberry e o porto 8090. E xa nos deixaría entrar no Beszel.
+Accedemos ao enderezo coa IP da Raspberry e o porto 8090. E xa nos deixará entrar en Beszel.
 
-Agora vainos entregar un código que vai ser moi parecido ao cal utilizamos anteriormente asique o que imos facer é copiar e pegar solo a parte que non temos.
+Agora vainos dar un código que vai ser moi parecido ao que utilizamos anteriormente, así que o que imos facer é copiar e pegar só a parte que non temos.
 
-E con todo eso xa vai funcionar perfectamente Beszel
+E con todo iso xa vai funcionar perfectamente Beszel.
 
-## Acceso remoto a Raspberry
+## Acceso remoto á Raspberry
 
-En este punto vou enseñar como facer para acceder a Raspberry desde calquera sitio. Para eso vamos utilizar Tailscale o cal é unha VPN que nos vai permitir acceder a Raspberry desde calquera sitio sin estar dentro da mesma rede.
+Neste punto vou ensinar como facer para acceder á Raspberry desde calquera sitio. Para iso imos utilizar Tailscale, que é unha VPN que nos vai permitir acceder á Raspberry desde calquera sitio sen estar dentro da mesma rede.
 
-Para instalalo primeiro imos ter que poñer o seguinte comando para descargalo:
+Para instalalo, primeiro temos que executar o seguinte comando para descargalo:
 
 ```bash
 curl -fsSL https://tailscale.com/install.sh | sh
 ```
 
-Despois de descargalo vamos iniciar Tailscale co seguinte comando:
+Despois de descargalo, imos iniciar Tailscale co seguinte comando:
 
 ```bash
 sudo tailscale up
 ```
 
-Agora vai nos dar un enlace o cal temos que copiar e pegar no navegador para iniciar sesión en Tailscale e agora teríamos que descargar a aplicación de Tailscale no dispositivo que queiramos acceder, iniciar sesión e xa poderíamos acceder a Raspberry desde calquera sitio.
+Agora vainos dar unha ligazón que temos que copiar e pegar no navegador para iniciar sesión en Tailscale. Despois teremos que descargar a aplicación de Tailscale no dispositivo desde o que queiramos acceder, iniciar sesión e xa poderemos acceder á Raspberry desde calquera sitio.
